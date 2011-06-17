@@ -16,7 +16,7 @@
 		/**
 		 * Configuration is stored in this variable
 		 */
-		var conf = {"maxChars": 100, "success": false, "error": false, "ajax":{"data": false,"type":"post","aids":"kebab"}, "saveOnBlur": false, "hover": false, "tooltip": "Click here to edit", "indicator": "Saving..", "saveStr": "Save", "cancelStr": "Cancel", "failStr": "Failed.. :("}, old;
+		var conf = {"maxChars": 100, "success": false, "error": false, "ajax":{"data": false,"type":"post"}, "saveOnBlur": false, "hover": false, "tooltip": "Click here to edit", "indicator": "Saving..", "saveStr": "Save", "cancelStr": "Cancel", "failStr": "Failed.. :("}, old;
 
 		$document.delegate("form[name='edit-in-place']", "submit" + (conf.saveOnBlur === true ? " blur" : ""), function(event) {
 			event.preventDefault();

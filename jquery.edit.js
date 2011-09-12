@@ -51,7 +51,7 @@
 						text = conf.tooltip;
 					}
 
-					var prev = $this.parent().prev(".edit-in-place-hidden:hidden");
+					var prev = $this.prev(".edit-in-place-hidden:hidden");
 					prev.text(text).removeClass("edit-in-place-hidden").show().data("original", text);
 					$this.remove();
 

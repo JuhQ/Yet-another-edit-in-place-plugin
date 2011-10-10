@@ -17,7 +17,7 @@
 		 * Configuration is stored in this variable
 		 */
 		var conf = {"maxChars": 100, "success": false, "error": false, "ajax":{"data": false,"type":"post"}, "saveOnBlur": false, "hover": false, "tooltip": "Click here to edit", "indicator": "Saving..", "saveStr": "Save", "cancelStr": "Cancel", "failStr": "Failed.. :("}, old;
-
+		
 		$document.delegate("form[name='edit-in-place']", "submit" + (conf.saveOnBlur === true ? " blur" : ""), function(event) {
 			event.preventDefault();
 
@@ -111,11 +111,11 @@
 			$this.remove();
 		}
 
-		function YAEIPP_createForm($this, event) {
+		function YAEIPP_createForm($this, event, formurl) {
 			event.preventDefault();
 			if(!$(event.target).is("input")) {
 				var text = $this.text();
-				var html = '<form style="display:inline;" method="' + conf.ajax.type + '" action="' + url + '" name="edit-in-place">';
+				var html = '<form style="display:inline;" method="' + conf.ajax.type + '" action="' + formurl + '" name="edit-in-place">';
 				if(text.length > conf.maxChars) {
 					html += '<textarea class="edit-in-place-content" name="content">' + text + '</textarea>';
 				} else {
@@ -135,16 +135,21 @@
 
 		$.extend(true, conf, configuration);
 		return this.each(function() {
-			var $this = $(this);
+			var $this = $(this), formUrl = url;;
 
 			if(conf.tooltip !== false) {
 				$this.attr("title", conf.tooltip);
 			}
 
 			$this.data("original", $this.text());
-
+			
+			// if url is a function, call the function and change url
+			if(typeof url == "function") {
+				formUrl = url.call(this);
+			}
+			
 			$this.click(function(event) {
-				YAEIPP_createForm($this, event);
+				YAEIPP_createForm($this, event, formUrl);
 			});
 
 			// element can be edited by simply hovering, if defined in configuration
